@@ -3,11 +3,11 @@
 // =============================================
 const typingText = document.querySelector('.typing-text');
 const phrases = [
-    'Full Stack Developer',
-    'React Specialist',
-    'Node.js Expert',
-    'Problem Solver',
-    'Creative Coder'
+    'Sr. Full Stack Developer',
+    'MERN Stack Expert',
+    'AI & Automation Specialist',
+    'Real-time Systems Architect',
+    'Problem Solver'
 ];
 
 let phraseIndex = 0;
@@ -178,7 +178,7 @@ contactForm.addEventListener('submit', (e) => {
     const message = document.getElementById('message').value;
     
     // Create mailto link (fallback for static site)
-    const mailtoLink = `mailto:contact@lalchand.me?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+    const mailtoLink = `mailto:lalchandteli13@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
     
     // Show success message
     const submitBtn = contactForm.querySelector('.btn-primary');
@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Console message for developers
     console.log('%c👋 Hello, Developer!', 'color: #667eea; font-size: 20px; font-weight: bold;');
     console.log('%cInterested in how this site was built? Let\'s connect!', 'color: #764ba2; font-size: 14px;');
-    console.log('%cEmail: contact@lalchand.me', 'color: #667eea; font-size: 12px;');
+    console.log('%cEmail: lalchandteli13@gmail.com', 'color: #667eea; font-size: 12px;');
 });
 
 // =============================================
