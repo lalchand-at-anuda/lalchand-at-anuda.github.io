@@ -5,6 +5,9 @@
 // GitHub API Configuration
 const GITHUB_API_BASE = 'https://api.github.com';
 
+// Fallback avatar SVG
+const FALLBACK_AVATAR_SVG = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"%3E%3Crect width="80" height="80" fill="%236366f1"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="32" fill="white"%3E%3F%3C/text%3E%3C/svg%3E';
+
 // Profile usernames
 const profiles = [
     {
@@ -50,8 +53,7 @@ function formatDate(dateString) {
 // Format Number with Commas
 // =============================================
 function formatNumber(num) {
-    if (num === null || num === undefined) return '0';
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return (num ?? 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 // =============================================
@@ -94,14 +96,13 @@ function updateProfileCard(profileData, cardElement) {
     // Add fade-in animation to stats
     const statBoxes = cardElement.querySelectorAll('.stat-box');
     statBoxes.forEach((box, index) => {
+        box.style.opacity = '0';
+        box.style.transform = 'translateY(10px)';
+        box.style.transition = 'all 0.5s ease';
+        
         setTimeout(() => {
-            box.style.opacity = '0';
-            box.style.transform = 'translateY(10px)';
-            setTimeout(() => {
-                box.style.transition = 'all 0.5s ease';
-                box.style.opacity = '1';
-                box.style.transform = 'translateY(0)';
-            }, 50);
+            box.style.opacity = '1';
+            box.style.transform = 'translateY(0)';
         }, index * 100);
     });
 }
@@ -232,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // =============================================
 document.querySelectorAll('.profile-avatar').forEach(img => {
     img.addEventListener('error', function() {
-        this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"%3E%3Crect width="80" height="80" fill="%236366f1"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="32" fill="white"%3E%3F%3C/text%3E%3C/svg%3E';
+        this.src = FALLBACK_AVATAR_SVG;
     });
 });
 
