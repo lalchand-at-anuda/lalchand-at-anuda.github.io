@@ -370,25 +370,14 @@
 
 .contribution-chart {
     width: 100%;
-    min-width: 600px;
     height: auto;
     border-radius: 0.5rem;
     display: block;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 968px) {
     .contribution-chart {
-        min-width: 500px;
-    }
-}
-
-@media (max-width: 480px) {
-    .contributions-graph {
-        padding: 0.5rem;
-    }
-    
-    .contribution-chart {
-        min-width: 400px;
+        min-width: 600px;
     }
 }
 
@@ -447,7 +436,7 @@
     }
 
     .stat-box {
-        padding: var(--spacing-xs);
+        padding: 0.75rem;
     }
 
     .stat-icon {
@@ -456,11 +445,15 @@
     }
 
     .stat-info h4 {
-        font-size: 1.25rem;
+        font-size: 1.125rem;
     }
 
     .stat-info p {
         font-size: 0.7rem;
+    }
+
+    .contribution-chart {
+        min-width: 500px;
     }
 }
 
@@ -500,27 +493,13 @@
         padding: var(--spacing-sm);
     }
 
-    .stat-icon {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .stat-info h4 {
-        font-size: 1.5rem;
-    }
-
-    .stat-info p {
-        font-size: 0.75rem;
-    }
-
     .skill-tag {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
     }
 
     .contribution-chart {
-        max-width: 100%;
-        overflow-x: auto;
+        min-width: 0;
     }
 }
 
