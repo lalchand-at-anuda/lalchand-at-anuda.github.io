@@ -421,6 +421,14 @@
     }
 }
 
+.created-date.unavailable {
+    color: var(--text-muted);
+}
+
+.created-date.available {
+    color: var(--primary-light);
+}
+
 /* =============================================
    Loading State
    ============================================= */

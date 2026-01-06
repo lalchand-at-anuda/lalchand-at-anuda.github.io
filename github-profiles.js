@@ -65,7 +65,7 @@ function updateProfileCard(profileData, cardElement) {
         const createdDateElement = cardElement.querySelector('.created-date');
         if (createdDateElement) {
             createdDateElement.textContent = 'Data unavailable';
-            createdDateElement.style.color = 'var(--text-muted)';
+            createdDateElement.classList.add('unavailable');
         }
         
         // Show em dash for unavailable stats
@@ -86,7 +86,7 @@ function updateProfileCard(profileData, cardElement) {
     const createdDateElement = cardElement.querySelector('.created-date');
     if (createdDateElement && profileData.created_at) {
         createdDateElement.textContent = formatDate(profileData.created_at);
-        createdDateElement.style.color = 'var(--primary-light)';
+        createdDateElement.classList.add('available');
     }
 
     // Update repositories count
