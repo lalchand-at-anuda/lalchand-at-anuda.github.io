@@ -449,7 +449,7 @@
 /* =============================================
    Responsive Design
    ============================================= */
-@media (max-width: 968px) {
+@media (max-width: 1024px) {
     .profiles-grid {
         grid-template-columns: 1fr;
         max-width: 650px;
@@ -462,7 +462,7 @@
 }
 
 /* Tablet optimizations */
-@media (min-width: 769px) and (max-width: 968px) {
+@media (min-width: 769px) and (max-width: 1024px) {
     .profile-stats {
         grid-template-columns: repeat(3, 1fr);
     }

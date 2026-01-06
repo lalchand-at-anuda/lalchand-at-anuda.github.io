@@ -69,13 +69,9 @@ function updateProfileCard(profileData, cardElement) {
         }
         
         // Show em dash for unavailable stats
-        const statElements = [
-            cardElement.querySelector('.repos-count'),
-            cardElement.querySelector('.followers-count'),
-            cardElement.querySelector('.following-count')
-        ];
-        
-        statElements.forEach(element => {
+        const STAT_SELECTORS = ['.repos-count', '.followers-count', '.following-count'];
+        STAT_SELECTORS.forEach(selector => {
+            const element = cardElement.querySelector(selector);
             if (element) element.textContent = '—';
         });
         
