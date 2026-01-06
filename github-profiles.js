@@ -65,7 +65,16 @@ function updateProfileCard(profileData, cardElement) {
         const createdDateElement = cardElement.querySelector('.created-date');
         if (createdDateElement) {
             createdDateElement.textContent = 'Data unavailable';
+            createdDateElement.classList.add('unavailable');
         }
+        
+        // Show em dash for unavailable stats
+        const STAT_SELECTORS = ['.repos-count', '.followers-count', '.following-count'];
+        STAT_SELECTORS.forEach(selector => {
+            const element = cardElement.querySelector(selector);
+            if (element) element.textContent = '—';
+        });
+        
         return;
     }
 
@@ -73,6 +82,7 @@ function updateProfileCard(profileData, cardElement) {
     const createdDateElement = cardElement.querySelector('.created-date');
     if (createdDateElement && profileData.created_at) {
         createdDateElement.textContent = formatDate(profileData.created_at);
+        createdDateElement.classList.add('available');
     }
 
     // Update repositories count
@@ -241,6 +251,6 @@ document.querySelectorAll('.profile-avatar').forEach(img => {
 document.querySelectorAll('.contribution-chart').forEach(img => {
     img.addEventListener('error', function() {
         const parent = this.parentElement;
-        parent.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 2rem;">Contribution chart unavailable</p>';
+        parent.innerHTML = '<div class="contribution-chart-fallback"><p>📊 Contribution chart is currently unavailable</p></div>';
     });
 });
