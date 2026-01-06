@@ -65,7 +65,18 @@ function updateProfileCard(profileData, cardElement) {
         const createdDateElement = cardElement.querySelector('.created-date');
         if (createdDateElement) {
             createdDateElement.textContent = 'Data unavailable';
+            createdDateElement.style.color = 'var(--text-muted)';
         }
+        
+        // Show 0 for stats instead of "-"
+        const reposCountElement = cardElement.querySelector('.repos-count');
+        const followersCountElement = cardElement.querySelector('.followers-count');
+        const followingCountElement = cardElement.querySelector('.following-count');
+        
+        if (reposCountElement) reposCountElement.textContent = '—';
+        if (followersCountElement) followersCountElement.textContent = '—';
+        if (followingCountElement) followingCountElement.textContent = '—';
+        
         return;
     }
 
@@ -73,6 +84,7 @@ function updateProfileCard(profileData, cardElement) {
     const createdDateElement = cardElement.querySelector('.created-date');
     if (createdDateElement && profileData.created_at) {
         createdDateElement.textContent = formatDate(profileData.created_at);
+        createdDateElement.style.color = 'var(--primary-light)';
     }
 
     // Update repositories count
@@ -241,6 +253,19 @@ document.querySelectorAll('.profile-avatar').forEach(img => {
 document.querySelectorAll('.contribution-chart').forEach(img => {
     img.addEventListener('error', function() {
         const parent = this.parentElement;
-        parent.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 2rem;">Contribution chart unavailable</p>';
+        parent.innerHTML = `
+            <div style="
+                color: var(--text-muted); 
+                text-align: center; 
+                padding: 2rem;
+                background: rgba(99, 102, 241, 0.05);
+                border-radius: 0.5rem;
+                border: 1px dashed rgba(99, 102, 241, 0.2);
+            ">
+                <p style="margin: 0; font-size: 0.9rem;">
+                    📊 Contribution chart is currently unavailable
+                </p>
+            </div>
+        `;
     });
 });
