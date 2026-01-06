@@ -255,19 +255,6 @@ document.querySelectorAll('.profile-avatar').forEach(img => {
 document.querySelectorAll('.contribution-chart').forEach(img => {
     img.addEventListener('error', function() {
         const parent = this.parentElement;
-        parent.innerHTML = `
-            <div style="
-                color: var(--text-muted); 
-                text-align: center; 
-                padding: 2rem;
-                background: rgba(99, 102, 241, 0.05);
-                border-radius: 0.5rem;
-                border: 1px dashed rgba(99, 102, 241, 0.2);
-            ">
-                <p style="margin: 0; font-size: 0.9rem;">
-                    📊 Contribution chart is currently unavailable
-                </p>
-            </div>
-        `;
+        parent.innerHTML = '<div class="contribution-chart-fallback"><p>📊 Contribution chart is currently unavailable</p></div>';
     });
 });

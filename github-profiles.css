@@ -84,7 +84,6 @@
     margin-bottom: var(--spacing-md);
     padding-bottom: var(--spacing-md);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    flex-wrap: wrap;
 }
 
 .profile-avatar-container {
@@ -258,7 +257,7 @@
 
 .stat-box {
     background: var(--bg-tertiary);
-    padding: 1.25rem var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-sm);
     border-radius: 0.75rem;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -402,6 +401,20 @@
     display: block;
 }
 
+.contribution-chart-fallback {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem;
+    background: rgba(99, 102, 241, 0.05);
+    border-radius: 0.5rem;
+    border: 1px dashed rgba(99, 102, 241, 0.2);
+}
+
+.contribution-chart-fallback p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
 @media (max-width: 968px) {
     .contribution-chart {
         min-width: 600px;
@@ -480,7 +493,7 @@
     }
 
     .stat-box {
-        padding: 1rem;
+        padding: var(--spacing-sm);
         min-height: 80px;
     }
 
@@ -555,7 +568,7 @@
     }
 
     .stat-box {
-        padding: 1.25rem var(--spacing-sm);
+        padding: var(--spacing-md) var(--spacing-sm);
         min-height: 90px;
     }
 
