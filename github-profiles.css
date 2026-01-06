@@ -38,6 +38,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
     gap: var(--spacing-lg);
+    align-items: start;
 }
 
 .profile-card {
@@ -49,6 +50,9 @@
     animation: fadeInUp 0.6s ease-out;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .profile-card::before {
@@ -230,6 +234,9 @@
     background: rgba(99, 102, 241, 0.03);
     border-radius: 0.75rem;
     border-left: 2px solid rgba(99, 102, 241, 0.3);
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-description h3 {
@@ -243,6 +250,7 @@
     color: var(--text-secondary);
     line-height: 1.8;
     font-size: 1rem;
+    flex: 1;
 }
 
 /* =============================================
