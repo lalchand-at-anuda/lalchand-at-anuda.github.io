@@ -68,14 +68,16 @@ function updateProfileCard(profileData, cardElement) {
             createdDateElement.style.color = 'var(--text-muted)';
         }
         
-        // Show 0 for stats instead of "-"
-        const reposCountElement = cardElement.querySelector('.repos-count');
-        const followersCountElement = cardElement.querySelector('.followers-count');
-        const followingCountElement = cardElement.querySelector('.following-count');
+        // Show em dash for unavailable stats
+        const statElements = [
+            cardElement.querySelector('.repos-count'),
+            cardElement.querySelector('.followers-count'),
+            cardElement.querySelector('.following-count')
+        ];
         
-        if (reposCountElement) reposCountElement.textContent = '—';
-        if (followersCountElement) followersCountElement.textContent = '—';
-        if (followingCountElement) followingCountElement.textContent = '—';
+        statElements.forEach(element => {
+            if (element) element.textContent = '—';
+        });
         
         return;
     }
