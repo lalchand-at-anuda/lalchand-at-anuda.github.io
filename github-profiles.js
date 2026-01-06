@@ -41,6 +41,136 @@ async function fetchGitHubProfile(username) {
 }
 
 // =============================================
+// Fetch Contribution Count for Current Year
+// =============================================
+async function fetchContributionCount(username) {
+    try {
+        const currentYear = new Date().getFullYear();
+        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${currentYear}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch contributions for ${username}`);
+        }
+        const data = await response.json();
+        return data.total[currentYear] || 0;
+    } catch (error) {
+        console.error(`Error fetching contributions for ${username}:`, error);
+        return null;
+    }
+}
+
+// =============================================
+// Fetch Total Repositories Count
+// =============================================
+async function fetchTotalRepos(username) {
+    try {
+        // Fetch user data to get total public repos
+        const userResponse = await fetch(`${GITHUB_API_BASE}/users/${username}`);
+        if (!userResponse.ok) {
+            throw new Error(`Failed to fetch repos for ${username}`);
+        }
+        const userData = await userResponse.json();
+        
+        // Get total public repos (private repos require authentication)
+        return {
+            public: userData.public_repos || 0,
+            total: userData.public_repos || 0 // API doesn't expose private count without auth
+        };
+    } catch (error) {
+        console.error(`Error fetching repos for ${username}:`, error);
+        return null;
+    }
+}
+
+// =============================================
+// Fetch All-Time Contributions
+// =============================================
+async function fetchAllTimeContributions(username) {
+    try {
+        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch all contributions for ${username}`);
+        }
+        const data = await response.json();
+        
+        // Sum all years
+        let total = 0;
+        if (data.total) {
+            Object.values(data.total).forEach(count => {
+                total += count;
+            });
+        }
+        return total;
+    } catch (error) {
+        console.error(`Error fetching all contributions for ${username}:`, error);
+        return null;
+    }
+}
+
+// =============================================
+// Determine Profile Status (Single Primary Status)
+// =============================================
+function determineProfileStatus(profileData, contributionsData) {
+    if (!profileData) {
+        return null;
+    }
+    
+    // Priority order: Hireable > Very Active > Active > Company > Has Website
+    
+    // Check if profile is hireable (highest priority)
+    if (profileData.hireable) {
+        return {
+            label: 'Available for hire',
+            type: 'hireable',
+            icon: '💼'
+        };
+    }
+    
+    // Check activity level based on contributions (high priority)
+    if (contributionsData > 100) {
+        return {
+            label: 'Very Active',
+            type: 'active',
+            icon: '🔥'
+        };
+    } else if (contributionsData > 50) {
+        return {
+            label: 'Active',
+            type: 'active',
+            icon: '✅'
+        };
+    }
+    
+    // Check if account has organization membership
+    if (profileData.company) {
+        return {
+            label: profileData.company.replace('@', ''),
+            type: 'verified',
+            icon: '🏢'
+        };
+    }
+    
+    // Check if profile has website/blog
+    if (profileData.blog) {
+        return {
+            label: 'Has Website',
+            type: 'verified',
+            icon: '🌐'
+        };
+    }
+    
+    // Default status based on repos
+    if (profileData.public_repos > 0) {
+        return {
+            label: 'Developer',
+            type: 'active',
+            icon: '👨‍💻'
+        };
+    }
+    
+    return null;
+}
+
+// =============================================
 // Format Date
 // =============================================
 function formatDate(dateString) {
@@ -59,7 +189,7 @@ function formatNumber(num) {
 // =============================================
 // Update Profile Card with GitHub Data
 // =============================================
-function updateProfileCard(profileData, cardElement) {
+function updateProfileCard(profileData, cardElement, contributionsData) {
     if (!profileData) {
         // Use fallback data if API fails
         const createdDateElement = cardElement.querySelector('.created-date');
@@ -69,7 +199,7 @@ function updateProfileCard(profileData, cardElement) {
         }
         
         // Show em dash for unavailable stats
-        const STAT_SELECTORS = ['.repos-count', '.followers-count', '.following-count'];
+        const STAT_SELECTORS = ['.repos-count', '.contributions-count'];
         STAT_SELECTORS.forEach(selector => {
             const element = cardElement.querySelector(selector);
             if (element) element.textContent = '—';
@@ -85,22 +215,40 @@ function updateProfileCard(profileData, cardElement) {
         createdDateElement.classList.add('available');
     }
 
-    // Update repositories count
+    // Update repositories count (show total public repos)
     const reposCountElement = cardElement.querySelector('.repos-count');
     if (reposCountElement) {
-        reposCountElement.textContent = formatNumber(profileData.public_repos || 0);
+        const totalRepos = profileData.public_repos + (profileData.total_private_repos || 0);
+        if (profileData.total_private_repos > 0) {
+            reposCountElement.textContent = formatNumber(totalRepos);
+            reposCountElement.title = `Public: ${profileData.public_repos}, Private: ${profileData.total_private_repos}`;
+        } else {
+            reposCountElement.textContent = formatNumber(profileData.public_repos || 0);
+            reposCountElement.title = `Public repositories`;
+        }
     }
 
-    // Update followers count
-    const followersCountElement = cardElement.querySelector('.followers-count');
-    if (followersCountElement) {
-        followersCountElement.textContent = formatNumber(profileData.followers || 0);
+    // Update contributions count (all-time)
+    const contributionsCountElement = cardElement.querySelector('.contributions-count');
+    if (contributionsCountElement) {
+        if (contributionsData !== null) {
+            contributionsCountElement.textContent = formatNumber(contributionsData);
+            contributionsCountElement.title = 'Total contributions (all time)';
+        } else {
+            contributionsCountElement.textContent = '—';
+        }
     }
 
-    // Update following count
-    const followingCountElement = cardElement.querySelector('.following-count');
-    if (followingCountElement) {
-        followingCountElement.textContent = formatNumber(profileData.following || 0);
+    // Update status badge on avatar
+    const statusIndicator = cardElement.querySelector('.status-indicator');
+    if (statusIndicator) {
+        const status = determineProfileStatus(profileData, contributionsData);
+        if (status) {
+            statusIndicator.textContent = `${status.icon} ${status.label}`;
+            statusIndicator.parentElement.className = `profile-status-badge ${status.type}`;
+        } else {
+            statusIndicator.textContent = '👤 Active';
+        }
     }
 
     // Add fade-in animation to stats
@@ -128,8 +276,13 @@ async function loadAllProfiles() {
         const cardElement = document.querySelector(`.profile-card[data-username="${profile.username}"]`);
         
         if (cardElement) {
-            const profileData = await fetchGitHubProfile(profile.username);
-            updateProfileCard(profileData, cardElement);
+            // Fetch all data in parallel for better performance
+            const [profileData, contributionsData] = await Promise.all([
+                fetchGitHubProfile(profile.username),
+                fetchAllTimeContributions(profile.username)
+            ]);
+            
+            updateProfileCard(profileData, cardElement, contributionsData);
         }
     }
 }
