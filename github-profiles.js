@@ -244,10 +244,12 @@ function updateProfileCard(profileData, cardElement, contributionsData) {
     if (statusIndicator) {
         const status = determineProfileStatus(profileData, contributionsData);
         if (status) {
-            statusIndicator.textContent = `${status.icon} ${status.label}`;
+            statusIndicator.textContent = status.icon;
             statusIndicator.parentElement.className = `profile-status-badge ${status.type}`;
+            statusIndicator.parentElement.title = status.label;
         } else {
-            statusIndicator.textContent = '👤 Active';
+            statusIndicator.textContent = '👤';
+            statusIndicator.parentElement.title = 'Active';
         }
     }
 
