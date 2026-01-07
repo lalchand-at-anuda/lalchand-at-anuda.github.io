@@ -186,6 +186,23 @@ function formatNumber(num) {
     return (num ?? 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+// Smoothly animate number counters for stats
+function animateCount(element, targetValue, duration = 1200) {
+    const startValue = parseInt((element.textContent || '0').replace(/,/g, ''), 10) || 0;
+    const startTime = performance.now();
+    const safeTarget = Math.max(0, Math.floor(targetValue || 0));
+
+    function update(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic for smooth finish
+        const current = Math.floor(startValue + (safeTarget - startValue) * eased);
+        element.textContent = formatNumber(current);
+        if (progress < 1) requestAnimationFrame(update);
+    }
+
+    requestAnimationFrame(update);
+}
+
 // =============================================
 // Update Profile Card with GitHub Data
 // =============================================
@@ -220,11 +237,11 @@ function updateProfileCard(profileData, cardElement, contributionsData) {
     if (reposCountElement) {
         const totalRepos = profileData.public_repos + (profileData.total_private_repos || 0);
         if (profileData.total_private_repos > 0) {
-            reposCountElement.textContent = formatNumber(totalRepos);
             reposCountElement.title = `Public: ${profileData.public_repos}, Private: ${profileData.total_private_repos}`;
+            animateCount(reposCountElement, totalRepos);
         } else {
-            reposCountElement.textContent = formatNumber(profileData.public_repos || 0);
             reposCountElement.title = `Public repositories`;
+            animateCount(reposCountElement, profileData.public_repos || 0);
         }
     }
 
@@ -232,8 +249,8 @@ function updateProfileCard(profileData, cardElement, contributionsData) {
     const contributionsCountElement = cardElement.querySelector('.contributions-count');
     if (contributionsCountElement) {
         if (contributionsData !== null) {
-            contributionsCountElement.textContent = formatNumber(contributionsData);
             contributionsCountElement.title = 'Total contributions (all time)';
+            animateCount(contributionsCountElement, contributionsData);
         } else {
             contributionsCountElement.textContent = '—';
         }
