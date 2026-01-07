@@ -239,18 +239,11 @@ function updateProfileCard(profileData, cardElement, contributionsData) {
         }
     }
 
-    // Update status badge on avatar
-    const statusIndicator = cardElement.querySelector('.status-indicator');
-    if (statusIndicator) {
-        const status = determineProfileStatus(profileData, contributionsData);
-        if (status) {
-            statusIndicator.textContent = status.icon;
-            statusIndicator.parentElement.className = `profile-status-badge ${status.type}`;
-            statusIndicator.parentElement.title = status.label;
-        } else {
-            statusIndicator.textContent = '👤';
-            statusIndicator.parentElement.title = 'Active';
-        }
+    // Update status badge on avatar - ensure status is set
+    const statusBadge = cardElement.querySelector('.profile-status-badge');
+    if (statusBadge) {
+        const statusType = cardElement.getAttribute('data-status');
+        statusBadge.setAttribute('data-status', statusType);
     }
 
     // Add fade-in animation to stats
