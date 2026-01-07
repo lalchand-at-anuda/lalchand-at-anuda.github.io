@@ -925,6 +925,26 @@ section {
 /* =============================================
    Scroll Animations
    ============================================= */
+.smooth-transition,
+.project-card,
+.profile-card,
+.code-card,
+.stat-item,
+.skill-category,
+.contact-item,
+.contact-form,
+.about-text,
+.contact-info,
+.section-header,
+.section-title,
+.hero-content {
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+                box-shadow 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+                border-color 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+                background-color 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: transform, box-shadow;
+}
+
 .fade-in {
     opacity: 0;
     transform: translateY(30px);

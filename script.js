@@ -157,7 +157,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe elements for animation
-const animateOnScroll = document.querySelectorAll('.skill-category, .project-card, .stat-item, .about-text, .contact-info, .contact-form');
+const animateOnScroll = document.querySelectorAll('section:not(.hero), .section-header, .section-title, .skill-category, .project-card, .stat-item, .about-text, .contact-info, .contact-form, .code-card, .profile-card, .contact-item');
 animateOnScroll.forEach(el => {
     el.classList.add('fade-in');
     observer.observe(el);
