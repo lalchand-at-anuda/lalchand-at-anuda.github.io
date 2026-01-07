@@ -786,6 +786,40 @@ section {
     min-height: 120px;
 }
 
+.form-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.form-actions .btn {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-whatsapp {
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp svg {
+    transition: transform var(--transition-fast);
+}
+
+.btn-whatsapp:hover svg {
+    transform: scale(1.1);
+}
+
 /* =============================================
    Subscribe Section
    ============================================= */
@@ -1251,6 +1285,15 @@ section {
         flex-direction: column;
         gap: var(--spacing-sm);
         text-align: center;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+        min-width: auto;
     }
     
     .subscribe-title {
