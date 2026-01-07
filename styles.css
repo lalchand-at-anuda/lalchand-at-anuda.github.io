@@ -162,6 +162,24 @@ body {
     width: 100%;
 }
 
+.nav-link.nav-resume {
+    padding: 0.5rem 1.25rem;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 999px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nav-link.nav-resume::after {
+    display: none;
+}
+
+.nav-link.nav-resume:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
 /* =============================================
    Hero Section
    ============================================= */
