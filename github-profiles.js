@@ -419,3 +419,125 @@ document.querySelectorAll('.contribution-chart').forEach(img => {
         parent.innerHTML = '<div class="contribution-chart-fallback"><p>📊 Contribution chart is currently unavailable</p></div>';
     });
 });
+
+// =============================================
+// Subscribe Form Handling
+// =============================================
+const subscribeForm = document.querySelector('.subscribe-form');
+
+if (subscribeForm) {
+    subscribeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const emailInput = document.getElementById('subscribe-email');
+        const email = emailInput.value;
+        const submitBtn = subscribeForm.querySelector('.subscribe-btn');
+        const btnText = submitBtn.querySelector('.btn-text');
+        const originalText = btnText.textContent;
+        
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        btnText.textContent = 'Subscribing...';
+        
+        try {
+            // TODO: Replace with your actual API endpoint
+            // Example: await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
+            
+            // For now, simulate API call
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Success state
+            subscribeForm.classList.add('success');
+            btnText.textContent = 'Subscribed! ✓';
+            emailInput.value = '';
+            
+            // Show success message
+            showNotification('Successfully subscribed! Check your email for confirmation.', 'success');
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                subscribeForm.classList.remove('success');
+                btnText.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+            
+        } catch (error) {
+            // Error state
+            btnText.textContent = 'Try Again';
+            submitBtn.disabled = false;
+            showNotification('Something went wrong. Please try again.', 'error');
+            
+            setTimeout(() => {
+                btnText.textContent = originalText;
+            }, 2000);
+        }
+    });
+}
+
+// =============================================
+// Notification System
+// =============================================
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    const existing = document.querySelector('.notification-toast');
+    if (existing) existing.remove();
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = `notification-toast notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <span class="notification-icon">${type === 'success' ? '✓' : '⚠'}</span>
+            <span class="notification-message">${message}</span>
+        </div>
+    `;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)' : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        max-width: 400px;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => notification.remove(), 300);
+    }, 4000);
+}
+
+// Add notification animations to page
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(400px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(400px); opacity: 0; }
+    }
+    .notification-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .notification-icon {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+`;
+document.head.appendChild(style);
