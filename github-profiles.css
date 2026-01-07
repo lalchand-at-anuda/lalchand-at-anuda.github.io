@@ -41,6 +41,19 @@
     align-items: start;
 }
 
+/* Sort profiles: Custom order */
+.profile-card[data-username="lalchandteli"] {
+    order: 1;
+}
+
+.profile-card[data-username="lalchand-at-anuda"] {
+    order: 2;
+}
+
+.profile-card[data-username="lal-chand-teli"] {
+    order: 3;
+}
+
 .profile-card {
     background: var(--bg-secondary);
     border: 1px solid rgba(255, 255, 255, 0.1);
