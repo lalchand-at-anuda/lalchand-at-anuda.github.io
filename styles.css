@@ -1001,6 +1001,9 @@ section {
     font-size: 3rem;
     margin-bottom: var(--spacing-sm);
     animation: bounce 2s ease-in-out infinite;
+    display: block;
+    text-align: center;
+    width: 100%;
 }
 
 .subscribe-title {
@@ -1224,14 +1227,22 @@ section {
     .subscribe-container {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: var(--spacing-md);
     }
     
     .subscribe-visual {
         min-height: 300px;
+        order: -1;
     }
     
     .subscribe-content {
         max-width: 100%;
+        margin: 0 auto;
+    }
+    
+    .subscribe-icon {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-xs);
     }
     
     .subscribe-stats {
@@ -1296,8 +1307,22 @@ section {
         min-width: auto;
     }
     
+    .subscribe-container {
+        gap: var(--spacing-sm);
+    }
+    
     .subscribe-title {
         font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .subscribe-description {
+        font-size: 0.9375rem;
+    }
+    
+    .subscribe-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
     }
     
     .envelope {
@@ -1320,6 +1345,10 @@ section {
         width: 110px;
         height: 85px;
         padding: 15px;
+    }
+    
+    .subscribe-visual {
+        min-height: 220px;
     }
     
     .subscribe-input-wrapper {
@@ -1359,14 +1388,45 @@ section {
     
     .subscribe-title {
         font-size: 1.75rem;
+        line-height: 1.2;
+    }
+    
+    .subscribe-description {
+        font-size: 0.875rem;
     }
     
     .subscribe-icon {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
     }
     
     .subscribe-visual {
-        min-height: 250px;
+        min-height: 200px;
+    }
+    
+    .envelope {
+        width: 120px;
+        height: 90px;
+    }
+    
+    .envelope-body {
+        width: 120px;
+        height: 60px;
+    }
+    
+    .envelope-flap {
+        border-left: 60px solid transparent;
+        border-right: 60px solid transparent;
+        border-top: 48px solid #8b5cf6;
+    }
+    
+    .letter {
+        top: 24px;
+        left: 20px;
+        width: 80px;
+        height: 65px;
+        padding: 10px;
     }
     
     .subscribe-stats {

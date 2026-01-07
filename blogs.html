@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tech blogs by Lal Chand Teli – Full Stack, AI, DevOps, and more">
+  <title>Blogs | Lal Chand Teli</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="blogs.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar scrolled">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="index.html" style="text-decoration: none;">
+          <span class="logo">&lt;Lal Chand /&gt;</span>
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+        <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="blogs.html" class="nav-link active">Blogs</a></li>
+        <li><a href="./Lal_Chand_Teli_-_Full_Stack_Developer-updated-13_11_25.pdf" class="nav-link nav-resume" target="_blank" rel="noopener" download>Resume</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="blogs-hero">
+    <div class="container">
+      <div class="blogs-hero-content">
+        <h1 class="page-title">Insights & Articles</h1>
+        <p class="page-subtitle">Deep dives into full‑stack development, AI automation, and performance engineering.</p>
+        <div class="blogs-search-filter">
+          <div class="filters-row">
+            <div class="filter-item">
+              <select id="category-filter" aria-label="Filter by category" class="filter-select">
+                <option value="all">All Categories</option>
+                <option value="Full Stack">Full Stack</option>
+                <option value="AI">AI</option>
+                <option value="Real-time">Real-time</option>
+                <option value="DevOps">DevOps</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <div class="search-wrapper glass">
+                <input type="text" id="blog-search" placeholder="Search articles, topics, or keywords..." autocomplete="off" aria-autocomplete="list" aria-expanded="false" aria-controls="search-suggestions">
+                <span class="search-icon">🔎</span>
+                <ul id="search-suggestions" class="autocomplete-list" role="listbox" aria-label="Suggestions"></ul>
+              </div>
+            </div>
+            <div class="filter-item">
+              <button id="apply-filters" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blogs-list">
+    <div class="container">
+      <div id="blogs-grid" class="blogs-grid"></div>
+      <div id="pagination" class="pagination"></div>
+    </div>
+  </section>
+
+  <section id="subscribe" class="subscribe">
+    <div class="container">
+      <div class="subscribe-container">
+        <div class="subscribe-visual">
+          <div class="envelope-animation">
+            <div class="envelope">
+              <div class="envelope-flap"></div>
+              <div class="envelope-body"></div>
+              <div class="letter">
+                <div class="letter-line"></div>
+                <div class="letter-line short"></div>
+                <div class="letter-line"></div>
+              </div>
+            </div>
+          </div>
+          <div class="subscribe-decorations">
+            <div class="float-circle circle-1"></div>
+            <div class="float-circle circle-2"></div>
+            <div class="float-circle circle-3"></div>
+          </div>
+        </div>
+        <div class="subscribe-content">
+          <div class="subscribe-icon">📬</div>
+          <h2 class="subscribe-title">
+            Stay <span class="gradient-text">Updated</span>
+          </h2>
+          <p class="subscribe-description">
+            Subscribe to get notified about new projects, tech articles, and exclusive insights 
+            into full-stack development, AI automation, and real-world problem solving.
+          </p>
+          <form class="subscribe-form">
+            <div class="subscribe-input-wrapper">
+              <input 
+                type="email" 
+                id="subscribe-email" 
+                name="email" 
+                placeholder="Enter your email address" 
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              >
+              <button type="submit" class="subscribe-btn">
+                <span class="btn-text">Subscribe</span>
+                <span class="btn-icon">→</span>
+              </button>
+            </div>
+            <p class="subscribe-notice">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+              We respect your privacy. Unsubscribe anytime.
+            </p>
+          </form>
+          <div class="subscribe-stats">
+            <div class="stat">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">Subscribers</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">Monthly</span>
+              <span class="stat-label">Updates</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; 2025 Lal Chand Teli. All rights reserved.</p>
+        <div class="social-links">
+          <a href="github-profiles.html" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+          </a>
+          <a href="https://in.linkedin.com/in/lal-chand-teli-758961170" target="_blank" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="mailto:lalchandteli13@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="blogs.js"></script>
+</body>
+</html>
