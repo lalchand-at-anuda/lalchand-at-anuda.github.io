@@ -1,6 +1,6 @@
 # Lalchand - Full Stack Developer Portfolio
 
-A modern, responsive portfolio website showcasing 3+ years of full stack development experience.
+A modern, responsive portfolio website showcasing 4+ years of full stack development experience with AI Agent integration.
 
 🌐 **Live Site**: [lalchand.me](https://lalchand.me)
 
