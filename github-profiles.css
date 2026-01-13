@@ -521,6 +521,7 @@
 /* =============================================
    Contributions Graph
    ============================================= */
+.profile-contributions {
     margin-top: var(--spacing-md);
     padding: 1.25rem;
     background: rgba(6, 182, 212, 0.05);
