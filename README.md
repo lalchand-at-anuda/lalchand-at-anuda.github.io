@@ -10,7 +10,7 @@
 
 ## 👨‍💻 About
 
-Sr. Full Stack Developer (MERN) at Anuda Realty Pvt. Ltd., based in Jaipur, India. Specialized in building intelligent, scalable web applications using Node.js, React, and AI automation, with a proven track record in Real Estate Tech, EdTech, and Healthcare sectors.
+Sr. Full Stack Developer (MERN) at Anuda Realty Pvt. Ltd., based in Jaipur, India. Specializing in building intelligent, scalable web applications using Node.js, React, and AI automation, with a proven track record in Real Estate Tech, EdTech, and Healthcare sectors.
 
 ## ✨ Features
 
