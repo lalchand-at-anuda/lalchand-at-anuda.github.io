@@ -483,3 +483,83 @@ document.addEventListener('DOMContentLoaded', () => {
 document.querySelectorAll('a[target="_blank"]').forEach(link => {
     link.setAttribute('rel', 'noopener noreferrer');
 });
+
+// =============================================
+// Site Visitor Counter
+// =============================================
+(function initVisitorCounter() {
+    // Dummy base counts (simulating existing data before localStorage tracking)
+    const BASE_TOTAL = 1247;
+    const BASE_TODAY = 38;
+    const BASE_UNIQUE = 934;
+
+    const today = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
+
+    // --- Unique visitor ID ---
+    let visitorId = localStorage.getItem('lct_visitor_id');
+    if (!visitorId) {
+        visitorId = (crypto.randomUUID ? crypto.randomUUID() : ('v_' + Date.now() + '_' + Array.from(crypto.getRandomValues(new Uint32Array(2))).map(n => n.toString(36)).join('')));
+        localStorage.setItem('lct_visitor_id', visitorId);
+    }
+
+    // --- Unique visitor count ---
+    let uniqueSet = JSON.parse(localStorage.getItem('lct_unique_ids') || '[]');
+    if (!uniqueSet.includes(visitorId)) {
+        uniqueSet.push(visitorId);
+        localStorage.setItem('lct_unique_ids', JSON.stringify(uniqueSet));
+    }
+    const uniqueCount = BASE_UNIQUE + uniqueSet.length;
+
+    // --- Total visits ---
+    let totalVisits = parseInt(localStorage.getItem('lct_total_visits') || '0', 10) + 1;
+    localStorage.setItem('lct_total_visits', String(totalVisits));
+    const totalCount = BASE_TOTAL + totalVisits;
+
+    // --- Today's visits ---
+    const todayKey = 'lct_today_' + today;
+    let todayVisits = parseInt(localStorage.getItem(todayKey) || '0', 10) + 1;
+    localStorage.setItem(todayKey, String(todayVisits));
+    const todayCount = BASE_TODAY + todayVisits;
+
+    // --- Clean up old daily keys (keep only the last 7 days) ---
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('lct_today_') && key !== todayKey) {
+            const keyDate = key.slice('lct_today_'.length);
+            if (keyDate < today) {
+                localStorage.removeItem(key);
+                i--;
+            }
+        }
+    }
+
+    // --- Animate number counting ---
+    function animateCount(el, target) {
+        const duration = 1200;
+        const start = performance.now();
+        function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(eased * target).toLocaleString();
+            if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+    }
+
+    // Wait until DOM is ready, then display
+    function displayCounts() {
+        const totalEl = document.getElementById('total-visits');
+        const todayEl = document.getElementById('today-visits');
+        const uniqueEl = document.getElementById('unique-visitors');
+        if (totalEl) animateCount(totalEl, totalCount);
+        if (todayEl) animateCount(todayEl, todayCount);
+        if (uniqueEl) animateCount(uniqueEl, uniqueCount);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', displayCounts);
+    } else {
+        displayCounts();
+    }
+})();
